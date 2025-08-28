@@ -1,0 +1,46 @@
+# Este es un .gitignore estándar para proyectos de Unity.
+# Ignora las carpetas y archivos que Unity genera automáticamente.
+
+# Carpetas generadas por Unity
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/[Uu]serSettings/
+
+# Archivos de Visual Studio y Rider
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Archivos de autocompletado
+*.csproj
+*.unityproj
+*.sln
+*.asmdef
+
+# Archivos de build
+*.apk
+*.aab
+*.app
+*.exe
+*.ipa
+*.unitypackage
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
