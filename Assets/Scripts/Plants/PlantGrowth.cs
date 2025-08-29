@@ -22,6 +22,9 @@ public class PlantGrowth : MonoBehaviour
         StartCoroutine(Grow());
     }
 
+    /** 
+     * Coroutine para el crecimiento de la planta 
+     */
     private IEnumerator Grow()
     {
         float timer = 0f;
@@ -35,21 +38,20 @@ public class PlantGrowth : MonoBehaviour
 
         transform.localScale = matureSize;
         isMature = true;
-        
+
         if (matureMaterial != null)
         {
             plantRenderer.material = matureMaterial;
         }
     }
 
+    /**
+     * Método para cosechar la planta
+     */
     public void Harvest()
     {
-        // --- LÍNEA MODIFICADA ---
-        // Antes de destruir la planta, le decimos al InventoryManager que añada 1 de miel.
-        // Gracias al Singleton, podemos acceder a él fácilmente desde cualquier sitio.
         InventoryManager.instance.AddHoney(1);
 
-        // Ahora sí, destruimos la planta.
         Destroy(gameObject);
     }
 }

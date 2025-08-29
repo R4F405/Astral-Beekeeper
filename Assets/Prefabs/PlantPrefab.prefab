@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5469734334231997210}
   - component: {fileID: 5659825674486447546}
   - component: {fileID: 5383473762959240618}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlantPrefab
   m_TagString: Plant
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

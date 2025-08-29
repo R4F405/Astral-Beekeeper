@@ -2,16 +2,14 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    // Ya no necesitamos una variable de distancia aquí, la quitamos.
     public LayerMask interactionMask;
 
     private Camera mainCamera;
-    private PlayerStats playerStats; // Referencia a nuestro nuevo script de estadísticas.
+    private PlayerStats playerStats;
 
     void Start()
     {
         mainCamera = Camera.main;
-        // Obtenemos el componente PlayerStats que está en el mismo objeto (el Jugador).
         playerStats = GetComponent<PlayerStats>();
     }
 
@@ -25,13 +23,14 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    /**
+    * Método para intentar interactuar con un objeto.
+    */
     private void TryInteract()
     {
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hitInfo;
 
-        // --- LÍNEA MODIFICADA ---
-        // También usamos la distancia de interacción desde nuestro script central PlayerStats.
         if (Physics.Raycast(ray, out hitInfo, playerStats.interactionDistance, interactionMask))
         {
             if (hitInfo.collider.CompareTag("Plant"))

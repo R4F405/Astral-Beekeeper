@@ -48,19 +48,39 @@ public class PlacementController : MonoBehaviour
         }
     }
 
+    /**
+    * Método para iniciar la colocación del objeto.
+    */
     void StartPlacement()
     {
-        isPlacing = true;
-        currentPlacingObject = Instantiate(objectToPlacePrefab);
-        SetLayerRecursively(currentPlacingObject, ignoreRaycastLayer);
+    isPlacing = true;
+    currentPlacingObject = Instantiate(objectToPlacePrefab);
+
+    // --- LÍNEAS A AÑADIR ---
+    // Obtenemos el collider del objeto de vista previa y lo convertimos en Trigger.
+    // Esto evita que choque y empuje al jugador o a otros objetos.
+    Collider previewCollider = currentPlacingObject.GetComponent<Collider>();
+    if (previewCollider != null)
+    {
+        previewCollider.isTrigger = true;
+    }
+    // --- FIN DE LÍNEAS A AÑADIR ---
+
+    SetLayerRecursively(currentPlacingObject, ignoreRaycastLayer);
     }
 
+    /**
+    * Método para cancelar la colocación del objeto.
+    */
     void CancelPlacement()
     {
         isPlacing = false;
         Destroy(currentPlacingObject);
     }
 
+    /**
+    * Método para actualizar la vista previa de colocación.
+    */
     void UpdatePlacementPreview()
     {
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -89,12 +109,18 @@ public class PlacementController : MonoBehaviour
         }
     }
 
+    /**
+    * Método para colocar el objeto.
+    */
     void PlaceObject()
     {
         Instantiate(objectToPlacePrefab, currentPlacingObject.transform.position, Quaternion.identity);
         CancelPlacement();
     }
-    
+
+    /**
+    * Método para comprobar si la posición de colocación es válida.
+    */
     bool IsValidPlacementPosition()
     {
         Collider objectCollider = currentPlacingObject.GetComponent<Collider>();
@@ -102,8 +128,6 @@ public class PlacementController : MonoBehaviour
 
         Vector3 boxSize = objectCollider.bounds.size * 0.9f;
 
-        // --- LÍNEA CORREGIDA ---
-        // Cambiamos "Ignore" por "Collide" para que la caja detecte también los Triggers.
         Collider[] colliders = Physics.OverlapBox(currentPlacingObject.transform.position, boxSize / 2, Quaternion.identity, placementMask, QueryTriggerInteraction.Collide);
 
         if (colliders.Length == 0)
@@ -122,6 +146,9 @@ public class PlacementController : MonoBehaviour
         return true;
     }
 
+    /**
+    * Método para establecer el material de colocación.
+    */
     void SetPlacementMaterial(Material mat)
     {
         if (currentPlacingObject != null && mat != null)
@@ -129,7 +156,10 @@ public class PlacementController : MonoBehaviour
             currentPlacingObject.GetComponent<Renderer>().material = mat;
         }
     }
-    
+
+    /**
+    * Método para establecer el layer de forma recursiva.
+    */
     void SetLayerRecursively(GameObject obj, int newLayer)
     {
         if (obj == null) return;
